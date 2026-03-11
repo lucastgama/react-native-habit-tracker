@@ -14,7 +14,15 @@ export default function TabsLayout() {
             ),
           }}
         />
-        <Tabs.Screen name="login" options={{ title: "Login" }} />
+        <Tabs.Screen
+          name="login"
+          options={{
+            title: "Login",
+            tabBarIcon: () => (
+              <FontAwesome name="user" size={24} color="black" />
+            ),
+          }}
+        />
       </Tabs>
     </>
   );
