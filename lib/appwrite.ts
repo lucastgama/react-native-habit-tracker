@@ -5,4 +5,15 @@ export const client = new Client()
   .setProject(process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!)
   .setPlatform(process.env.EXPO_PUBLIC_APPWRITE_PLATFORM!);
 
-export const account = new Account(client)
+export const account = new Account(client);
+export const databases = new Databases(client);
+
+export const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
+export const TABLE_ID = process.env.EXPO_PUBLIC_APPWRITE_TABLE_ID!;
+export const COMPLETIONS_TABLE_ID =
+  process.env.EXPO_PUBLIC_COMPLETIONS_TABLE_ID!;
+
+export interface RealtimeResponse {
+  events: string[];
+  payload: any;
+}

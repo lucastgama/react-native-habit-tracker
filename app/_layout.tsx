@@ -1,9 +1,12 @@
 import { AuthProvider } from "@/lib/auth-context";
-import { Slot, useRouter, useSegments } from "expo-router";
+import { Stack, useRouter, useSegments } from "expo-router";
 import { useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
+import { PaperProvider } from "react-native-paper";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-function RouteGuard() {
+function RouteGuard({ children }: { children: React.ReactNode }) {
   const { user, isLoadingUser } = useAuth();
   const segments = useSegments();
   const router = useRouter();
@@ -20,13 +23,25 @@ function RouteGuard() {
     }
   }, [user, isLoadingUser, segments]);
 
-  return <Slot />;
+  return <>{children}</>;
 }
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <RouteGuard />
-    </AuthProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthProvider>
+        <PaperProvider>
+          {/*Doc */}
+          <SafeAreaProvider>
+            {/*Doc */}
+            <RouteGuard>
+              <Stack screenOptions={{ headerTitleAlign: "center" }}>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              </Stack>
+            </RouteGuard>
+          </SafeAreaProvider>
+        </PaperProvider>
+      </AuthProvider>
+    </GestureHandlerRootView>
   );
 }
